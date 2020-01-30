@@ -1,0 +1,23 @@
+{
+  "name": "study",
+  "version": "1.0.0",
+  "description": "My nodejs study",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pcbsytem/node-study.git"
+  },
+  "author": "pcbsytem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pcbsytem/node-study/issues"
+  },
+  "homepage": "https://github.com/pcbsytem/node-study#readme",
+  "dependencies": {
+    "express": "4.16.3"
+  }
+}
