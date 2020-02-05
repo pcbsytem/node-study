@@ -25,4 +25,17 @@ module.exports = (app) => {
     ))
       .catch(error => console.log(error));
   });
+
+  app.get('/livros/form', (req, res) => {
+    res.marko(require('../views/livros/form/form.marko'));
+  })
+
+  app.post('/livros', (req, res) => {
+    console.log(req.body);
+    // const livroDao = new LivroDao(db);
+
+    // livroDao.adiciona(req.body)
+    //   .then(res => console.log(res))
+    //   .catch(error => console.log(error));
+  })
 }
