@@ -37,6 +37,18 @@ class LivroDao {
       })
     });
   }
+
+  buscaPorId(id) {
+    return new Promise((resolve, reject) => {
+      this._db.all(
+        `SELECT * FROM livros WHERE id=${id}`,
+        (error, result) => {
+          if (error) return reject(error);
+          return resolve(result);
+        }
+      )
+    });
+  }
 }
 
 module.exports = LivroDao;

@@ -26,6 +26,17 @@ module.exports = (app) => {
       .catch(error => console.log(error));
   });
 
+  app.get('/livros/:id', (req, res) => {
+    console.log(req.params.id)
+    const livroDao = new LivroDao(db);
+
+    livroDao.buscaPorId(req.params.id).then(livros => res.marko(
+      require('../views/livros/lista/lista.marko'),
+      { livros }
+    ))
+      .catch(error => console.log(error));
+  })
+
   app.get('/livros/form', (req, res) => {
     res.marko(require('../views/livros/form/form.marko'));
   })
