@@ -52,10 +52,19 @@ module.exports = (app) => {
 
   app.put('/livros/:id', (req, res) => {
     const livroDao = new LivroDao(db);
+    console.log(req)
     const livro = { ...req.body, id: req.params.id };
 
     livroDao.atualiza(livro)
       .then(res.redirect('/livros'))
+      .catch(error => console.log(error));
+  })
+
+  app.delete('/livros/:id', (req, res) => {
+    const livroDao = new LivroDao(db);
+
+    livroDao.remove(req.params.id)
+      .then(res => console.log('Livro removido com sucesso!'))
       .catch(error => console.log(error));
   })
 }
