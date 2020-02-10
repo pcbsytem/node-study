@@ -61,10 +61,11 @@ module.exports = (app) => {
   })
 
   app.delete('/livros/:id', (req, res) => {
+    const id = req.params.id;
     const livroDao = new LivroDao(db);
 
-    livroDao.remove(req.params.id)
-      .then(res => console.log('Livro removido com sucesso!'))
+    livroDao.remove(id)
+      .then(res => res.status(200).end())
       .catch(error => console.log(error));
   })
 }
