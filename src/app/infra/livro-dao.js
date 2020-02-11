@@ -45,7 +45,7 @@ class LivroDao {
         [id],
         (error, result) => {
           if (error) return reject(error);
-          return resolve(result);
+          return resolve(result[0]);
         }
       )
     });

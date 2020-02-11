@@ -26,14 +26,18 @@ module.exports = (app) => {
       .catch(error => console.log(error));
   });
 
-  app.get('/livros/:id', (req, res) => {
-    console.log(req.params.id)
+  app.get('/livros/form/:id', (req, res) => {
+    const id = req.params.id;
     const livroDao = new LivroDao(db);
 
-    livroDao.buscaPorId(req.params.id).then(livros => res.marko(
-      require('../views/livros/lista/lista.marko'),
-      { livros }
-    ))
+    livroDao.buscaPorId(id)
+      .then(livro => {
+        console.log('livro', livro)
+        res.marko(
+          require('../views/livros/form/form.marko'),
+          { livro: livro }
+        )
+      })
       .catch(error => console.log(error));
   })
 
@@ -52,7 +56,6 @@ module.exports = (app) => {
 
   app.put('/livros/:id', (req, res) => {
     const livroDao = new LivroDao(db);
-    console.log(req)
     const livro = { ...req.body, id: req.params.id };
 
     livroDao.atualiza(livro)
@@ -65,7 +68,7 @@ module.exports = (app) => {
     const livroDao = new LivroDao(db);
 
     livroDao.remove(id)
-      .then(res => res.status(200).end())
+      .then(() => res.status(200).end())
       .catch(error => console.log(error));
   })
 }
