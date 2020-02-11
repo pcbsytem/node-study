@@ -27,26 +27,24 @@ module.exports = (app) => {
   });
 
   app.get('/livros/form/:id', (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
     const livroDao = new LivroDao(db);
 
     livroDao.buscaPorId(id)
-      .then(livro => {
-        console.log('livro', livro)
+      .then(livro =>
         res.marko(
           require('../views/livros/form/form.marko'),
           { livro: livro }
         )
-      })
+      )
       .catch(error => console.log(error));
   })
 
   app.get('/livros/form', (req, res) => {
-    res.marko(require('../views/livros/form/form.marko'));
+    res.marko(require('../views/livros/form/form.marko'), { livro: {} });
   })
 
   app.post('/livros', (req, res) => {
-    console.log(req.body);
     const livroDao = new LivroDao(db);
 
     livroDao.adiciona(req.body)
@@ -54,17 +52,16 @@ module.exports = (app) => {
       .catch(error => console.log(error));
   })
 
-  app.put('/livros/:id', (req, res) => {
+  app.put('/livros', (req, res) => {
     const livroDao = new LivroDao(db);
-    const livro = { ...req.body, id: req.params.id };
 
-    livroDao.atualiza(livro)
+    livroDao.atualiza(req.body)
       .then(res.redirect('/livros'))
       .catch(error => console.log(error));
   })
 
   app.delete('/livros/:id', (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
     const livroDao = new LivroDao(db);
 
     livroDao.remove(id)
