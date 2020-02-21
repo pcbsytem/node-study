@@ -3,6 +3,8 @@ const db = require('../../config/database');
 
 const { validationResult } = require('express-validator/check');
 
+const templates = require('../views/templates');
+
 class LivroControlador {
   static rotas() {
     return {
@@ -21,7 +23,7 @@ class LivroControlador {
 
       if (!erros.isEmpty()) {
         return res.marko(
-          require('../views/livros/form/form.marko'),
+          templates.livros.form,
           {
             livro: req.body,
             errosValidacao: erros.array()
@@ -51,7 +53,7 @@ class LivroControlador {
 
       livroDao.lista()
         .then(livros => res.marko(
-          require('../views/livros/lista/lista.marko'),
+          templates.livros.lista,
           {
             livros
           }
@@ -62,7 +64,7 @@ class LivroControlador {
 
   formularioCadastro() {
     return (req, res) => {
-      res.marko(require('../views/livros/form/form.marko'), { livro: {} });
+      res.marko(templates.livros.form, { livro: {} });
     }
   }
 
@@ -74,7 +76,7 @@ class LivroControlador {
       livroDao.buscaPorId(id)
         .then(livro =>
           res.marko(
-            require('../views/livros/form/form.marko'),
+            templates.livros.form,
             { livro: livro }
           )
         )
