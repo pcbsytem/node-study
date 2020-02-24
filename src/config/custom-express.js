@@ -6,6 +6,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
+const templates = require('../app/views/templates');
+
 app.use('/estatico', express.static('src/app/public'));
 
 app.use(bodyParser.urlencoded({
@@ -20,6 +22,9 @@ app.use(methodOverride(function (req, res) {
     return method;
   }
 }))
+
+const sessaoAutenticacao = require('./sessao-autenticacao');
+sessaoAutenticacao(app);
 
 const rotas = require('../app/rotas/rotas');
 
