@@ -1,3 +1,4 @@
+const LivroControlador = require('./livro-controlador');
 const templates = require('../views/templates');
 
 class BaseControlador {
@@ -21,8 +22,19 @@ class BaseControlador {
   }
 
   efetuaLogin() {
-    return (req, res) => {
+    return (req, res, next) => {
+      const passport = req.passport;
+      passport.autenticate('local', (erro, usuario, info) => {
+        if (info) return res.marko(templates.base.login);
 
+        if (erro) return next(erro);
+
+        req.login(usuario, (erro) => {
+          if (erro) return next(erro);
+
+          return res.redirect(LivroControlador.rotas().lista);
+        });
+      })(req, res, next);
     }
   }
 }

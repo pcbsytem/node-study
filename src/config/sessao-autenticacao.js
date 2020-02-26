@@ -1,3 +1,5 @@
+const uuid = require('uuid/v4');
+const sessao = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -51,4 +53,9 @@ module.exports = (app) => {
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use((req, res, next) => {
+    req.passport = passport;
+    next();
+  })
 }
