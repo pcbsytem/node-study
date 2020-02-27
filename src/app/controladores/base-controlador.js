@@ -24,14 +24,13 @@ class BaseControlador {
   efetuaLogin() {
     return (req, res, next) => {
       const passport = req.passport;
-      passport.autenticate('local', (erro, usuario, info) => {
+      passport.autenthicate('local', (erro, usuario, info) => {
         if (info) return res.marko(templates.base.login);
 
         if (erro) return next(erro);
 
         req.login(usuario, (erro) => {
           if (erro) return next(erro);
-
           return res.redirect(LivroControlador.rotas().lista);
         });
       })(req, res, next);

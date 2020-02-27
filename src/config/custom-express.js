@@ -6,8 +6,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-const templates = require('../app/views/templates');
-
 app.use('/estatico', express.static('src/app/public'));
 
 app.use(bodyParser.urlencoded({
@@ -37,6 +35,7 @@ app.use((req, res, next) => {
 })
 
 app.use((erro, req, res, next) => {
+  console.log('erro - ', erro)
   return res.status(500).marko(
     require('../app/views/base/erros/500.marko')
   );
