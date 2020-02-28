@@ -24,8 +24,11 @@ class BaseControlador {
   efetuaLogin() {
     return (req, res, next) => {
       const passport = req.passport;
-      passport.autenthicate('local', (erro, usuario, info) => {
-        if (info) return res.marko(templates.base.login);
+      passport.authenticate('local', (erro, usuario, info) => {
+        console.log(info)
+        if (info) {
+          return res.marko(templates.base.login);
+        }
 
         if (erro) return next(erro);
 

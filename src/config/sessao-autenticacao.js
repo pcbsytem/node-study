@@ -17,7 +17,7 @@ module.exports = (app) => {
       const usuarioDao = new UsuarioDao(db);
       usuarioDao.buscaPorEmail(email)
         .then(usuario => {
-          if (!usuario || senha !== usuarioDao.senha) {
+          if (email !== usuario.email || senha !== usuario.senha) {
             return done(null, false, {
               mensagem: 'Login e senha incorretos!'
             });
