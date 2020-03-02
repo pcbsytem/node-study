@@ -8,6 +8,7 @@ const templates = require('../views/templates');
 class LivroControlador {
   static rotas() {
     return {
+      autenticadas: '/livros*',
       lista: '/livros',
       cadastro: '/livros/form',
       edicao: '/livros/form/:id',
